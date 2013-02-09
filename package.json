@@ -36,7 +36,8 @@
     "nconf": "*",
     "express": "*",
     "uglify-js": "*",
-    "uglifycss": "*"
+    "uglifycss": "*",
+    "socket.io": "~0.9.13"
   },
   "devDependencies": {
     "grunt-simple-mocha": "~0.2.0",

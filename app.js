@@ -1,6 +1,9 @@
 var express = require('express')
     , configurations = module.exports
     , app = express()
+    , http = require('http')
+    , server = http.createServer(app)
+    , io = require('socket.io').listen(server)
     , nconf = require('nconf')
     , winston = require('winston')
 
@@ -16,6 +19,9 @@ nconf.argv().env().file({ file: 'local.json' })
 // Routes
 require('./routes')(app)
 
+// Socket IO
+require('./lib/socketio')(io)
+
 logger.info('listening on', nconf.get('port'))
 
-app.listen(process.env.PORT || nconf.get('port'))
+server.listen(process.env.PORT || nconf.get('port'))

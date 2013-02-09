@@ -11,7 +11,7 @@
         ],
         "/js/site.min.js":[
             "/js/site.js"
-            , "/js/old.js"
+            , "/js/socketio.js"
         ],
         "/components/jquery/jquery.min.js":[
             "/components/jquery/jquery.js"
@@ -24,6 +24,9 @@
         ],
         "/components/backbone/backbone-min.js":[
             "/components/backbone/backbone.js"
+        ],
+        "/components/socket.io/dist/socket.io.min.js":[
+            "/components/socket.io/dist/socket.io.js"
         ],
         "/components/bootstrap/docs/assets/js/bootstrap.min.js":[
             "/components/bootstrap/docs/assets/js/bootstrap.js"

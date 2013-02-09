@@ -56,7 +56,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-simple-mocha');
 
     // Default task.
-    grunt.registerTask('default', 'simplemocha');
+    grunt.registerTask('default', ['lint','simplemocha']);
 
     // override the default test target
     grunt.registerTask('test', 'simplemocha');

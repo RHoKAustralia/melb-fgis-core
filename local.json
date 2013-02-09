@@ -8,6 +8,7 @@
         ],
         "/css/style.min.css":[
             "/css/style.css"
+            , "/css/simple.css"
         ],
         "/js/site.min.js":[
             "/js/site.js"

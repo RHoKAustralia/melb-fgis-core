@@ -19,6 +19,9 @@
         "/components/leaflet/dist/leaflet.js":[
             "/components/leaflet/dist/leaflet.js"
         ],
+        "/components/underscore/underscore-min.js":[
+            "/components/underscore/underscore.js"
+        ],
         "/components/backbone/backbone-min.js":[
             "/components/backbone/backbone.js"
         ],

@@ -1,0 +1,48 @@
+{
+  "name": "fgis-core",
+  "description": "FGIS core project",
+  "version": "0.1.0",
+  "homepage": "https://github.com/markw/fgis-core",
+  "author": {
+    "name": "Mark Wolfe",
+    "email": "mark@wolfe.id.au",
+    "url": "https://github.com/rhok-melbourne/fgis-core"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/markw/fgis-core.git"
+  },
+  "bugs": {
+    "url": "https://github.com/markw/fgis-core/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/markw/fgis-core/blob/master/LICENSE-MIT"
+    }
+  ],
+  "main": "lib/fgis-core",
+  "engines": {
+    "node": ">= 0.6.0"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "dependencies": {
+    "connect-cachify": "*",
+    "winston": "*",
+    "winston-request-logger": "*",
+    "jade": "*",
+    "nconf": "*",
+    "express": "*",
+    "uglify-js": "*",
+    "uglifycss": "*"
+  },
+  "devDependencies": {
+    "grunt-simple-mocha": "~0.2.0",
+    "mocha": "~1.6.0",
+    "should": "~1.2.0",
+    "grunt": "~0.3.17"
+  },
+  "keywords": []
+}

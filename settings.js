@@ -1,6 +1,7 @@
 module.exports = function (app, configurations, express, logger) {
 
     var nconf = require('nconf')
+        , gzippo = require('gzippo')
         , cachify = require('connect-cachify')
         , winston = require('winston')
         , requestLogger = require('winston-request-logger')
@@ -11,7 +12,7 @@ module.exports = function (app, configurations, express, logger) {
     var assets = nconf.get('assets') || {}
 
     // Development Configuration
-    app.configure('development', 'test', function(){
+    app.configure('development', 'test', function () {
         // register the request logger
         app.use(requestLogger.create(logger))
         app.set('DEBUG', true)
@@ -19,7 +20,7 @@ module.exports = function (app, configurations, express, logger) {
     })
 
     // Production Configuration
-    app.configure('production', function(){
+    app.configure('production', function () {
         app.set('DEBUG', false)
         app.use(express.errorHandler())
     })
@@ -31,15 +32,15 @@ module.exports = function (app, configurations, express, logger) {
     }))
 
     // Global Configuration
-    app.configure(function(){
+    app.configure(function () {
 
         app.set('views', __dirname + '/views')
         app.set('view engine', 'jade')
         app.set('view options', { layout: false })
         app.use(express.bodyParser())
         app.use(express.methodOverride())
-        app.use(express.static(__dirname + '/public'))
-
+        app.use(gzippo.staticGzip(__dirname + '/public'))
+        app.use(express.compress())
         app.use(app.router)
 
     })

@@ -33,5 +33,5 @@
             "/components/bootstrap/docs/assets/js/bootstrap.js"
         ]
     },
-    "connectionUri": "postgres://localhost/fgis_development"
+    "connectionUri": "postgres://fgis_development@localhost/fgis_development"
 }

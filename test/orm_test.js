@@ -17,10 +17,12 @@ describe('orm', function() {
     }
   };
 
-  it('should load the orm', function(done) {
+  it('should load the orm', function() {
     fgisOrm(app, conf);
-    //TODO: assert that the ORM is actually loaded
-    done()
+  });
+
+  it('adds and deletes a feature from the database', function(done) {
+    done();
   });
 
 });

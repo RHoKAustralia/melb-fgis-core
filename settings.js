@@ -9,6 +9,9 @@ module.exports = function (app, configurations, express, logger) {
 
     nconf.argv().env().file({ file: 'local.json' })
 
+    // setup the ORM middl eware
+    fgisOrm(app, nconf)
+
     // load assets node from configuration file.
     var assets = nconf.get('assets') || {}
 
@@ -45,8 +48,6 @@ module.exports = function (app, configurations, express, logger) {
         app.use(app.router)
 
     })
-
-    fgisOrm(app, nconf)
 
     return app
 }

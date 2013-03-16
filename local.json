@@ -33,5 +33,5 @@
             "/components/bootstrap/docs/assets/js/bootstrap.js"
         ]
     },
-    "connectionUri": "postgres://username:password@host/database"
+    "connectionUri": "postgres://fgis_development:password@host/database"
 }

@@ -7,8 +7,8 @@
   "dependencies": {
     "bootstrap": "~2.2.2",
     "backbone": "~0.9.10",
-    "socket.io": "~0.9.11",
     "leaflet": "~0.5.1",
-    "underscore": "~1.4.4"
+    "underscore": "~1.4.4",
+    "socket.io-client": "~0.9.11"
   }
 }

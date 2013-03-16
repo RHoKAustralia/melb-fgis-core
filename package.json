@@ -38,7 +38,8 @@
     "uglify-js": "*",
     "uglifycss": "*",
     "socket.io": "~0.9.13",
-    "gzippo": "~0.2.0"
+    "gzippo": "~0.2.0",
+    "orm": "~2.0.5"
   },
   "devDependencies": {
     "grunt-simple-mocha": "~0.2.0",

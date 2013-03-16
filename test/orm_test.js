@@ -7,7 +7,6 @@ describe('orm', function() {
   var app = express();
   var conf = {
     get: function(key) {
-      console.log("get", key);
       var password = process.env.DEV_POSTGRES_PASSWORD;
       if (typeof password == 'undefined') {
         throw Error('Missing env.DEV_POSTGRES_PASSWORD');
@@ -19,9 +18,7 @@ describe('orm', function() {
   };
 
   it('should load the orm', function(done) {
-    console.log('before');
     fgisOrm(app, conf);
-    console.log('after');
     //TODO: assert that the ORM is actually loaded
     done()
   });

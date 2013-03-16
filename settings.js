@@ -5,6 +5,7 @@ module.exports = function (app, configurations, express, logger) {
         , cachify = require('connect-cachify')
         , winston = require('winston')
         , requestLogger = require('winston-request-logger')
+        , fgisOrm = require('./lib/fgis-orm')
 
     nconf.argv().env().file({ file: 'local.json' })
 
@@ -44,6 +45,8 @@ module.exports = function (app, configurations, express, logger) {
         app.use(app.router)
 
     })
+
+    fgisOrm(app, nconf)
 
     return app
 }

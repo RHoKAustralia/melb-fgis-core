@@ -32,5 +32,6 @@
         "/components/bootstrap/docs/assets/js/bootstrap.min.js":[
             "/components/bootstrap/docs/assets/js/bootstrap.js"
         ]
-    }
+    },
+    "connectionUri": "postgres://username:password@host/database"
 }

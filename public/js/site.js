@@ -93,7 +93,31 @@
 
     // Let's test it...
 
+    // subscribe to stuff
+    app.socket = io.connect('http://localhost:3000')
+
+    app.socket.on('watchEvents', function(data){
+
+      console.log(data)
+
+      app.event = data.event;
+
+      L.geoJson(event.event.featureCollection).addTo(app.views.map)
+
+      // update the map
+
+      // update the event list
+
+      // update the local weather
+
+      // update temp and status
+
+
+    })
+
+
     setTimeout(function() {
+
       app.pois.add(
         {
           id: 1234

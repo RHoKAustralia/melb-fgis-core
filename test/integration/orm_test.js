@@ -8,8 +8,8 @@ describe('orm', function() {
   var conf = {
     get: function(key) {
       var password = process.env.DEV_POSTGRES_PASSWORD;
-      if (typeof password == 'undefined') {
-        throw Error('Missing env.DEV_POSTGRES_PASSWORD');
+      if (typeof password === 'undefined') {
+        throw new Error('Missing env.DEV_POSTGRES_PASSWORD');
       }
       var dbName = 'fgis_development';
       var dbOwner = 'fgis_development';

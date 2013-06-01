@@ -37,7 +37,7 @@
     "express": "*",
     "uglify-js": "*",
     "uglifycss": "*",
-    "socket.io": "~0.9.13",
+    "socket.io": "~0.9.14",
     "gzippo": "~0.2.0",
     "orm": "~2.0.5",
     "pg": "~0.14.1"

@@ -3,7 +3,8 @@ var express = require('express');
 var request = require('supertest');
 var fs = require('fs');
 
-var logObject = require('../../lib/util.js').logObject
+var logObject = require('debug')('test')
+
 var serverHelper = require('../helper/server_helper.js');
 
 describe('orm', function() {
@@ -20,6 +21,7 @@ describe('orm', function() {
   it('adds a feature to the database', function(done) {
     fs.readFile('test/fixtures/fire_ugly.json', 'utf-8', function(fsErr, data) {
       //console.log('- data:', require('util').inspect(data));
+      logObject('some data', data);
       if (fsErr) throw fsErr
 
       request(app)

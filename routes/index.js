@@ -1,4 +1,4 @@
-var logObject = require('../lib/util.js').logObject
+var log = require('debug')('rest')
 var feature = require('../lib/features.js')
 
 module.exports = function(app) {

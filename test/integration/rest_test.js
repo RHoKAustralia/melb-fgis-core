@@ -17,7 +17,7 @@ describe('orm', function() {
 
   before(function(done) {
     serverHelper(function(err, data) {
-      if (err) throw err;
+      if (err) return done(err);
       app = data;
       done();
     });
@@ -33,7 +33,7 @@ describe('orm', function() {
         .set('Content-Type', 'application/json')
         .send(data)
         .end(function(err, res) {
-          if (err) throw err;
+          if (err) return done(err);
           res.should.have.status(201);
           //logObject('res.body:', res.body);
           done();
@@ -50,18 +50,11 @@ describe('orm', function() {
   });
 
   it('gets a feature from the database', function(done) {
-    done();
-    return;
     request(app)
       .get('/feature/fire/1')
-      .end(function(err, resp) {
-        console.log('bwahahaha');
-        console.log(err);
-        logObject('resp.body:', resp.text);
-        //console.log('- resp:', require('util').inspect(resp.text));
-        resp.should.have.status(200);
-        done();
-      });
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(200, done);
   });
 
   it('deletes a feature from the database', function(done) {
@@ -70,8 +63,8 @@ describe('orm', function() {
     request(app)
       .delete('/feature/fire/7')
       .end(function(err, resp) {
+        if (err) return done(err);
         console.log('bwahahaha');
-        console.log(err);
         logObject('resp.body:', resp.text);
         //console.log('- resp:', require('util').inspect(resp.text));
         resp.should.have.status(200);

@@ -7,6 +7,9 @@ module.exports = function(app) {
   function logObject(label, obj) {
     console.log('-', label, require('util').inspect(obj));
   }
+  function logRoute(request) {
+    console.log(request.method, request.url);
+  }
 
   function addFireFeature(feature, db, cb) {
     db.models.feature.create([
@@ -16,14 +19,12 @@ module.exports = function(app) {
       , 'updatedAt':   new Date()
       }
     ], function(err, items) {
-      console.log(items);
       if (err) {
         cb(err);
         return;
       }
       var successIds = [];
       for (var i = 0; i < items.length; i++) {
-        console.log(items[i].id);
         successIds.push(items[i].id);
       };
       cb(null, successIds);
@@ -38,14 +39,21 @@ module.exports = function(app) {
       cb(null, fires);
     });
   }
+  function getFireFeature(db, id, cb) {
+    db.models.feature.find({'id': id}, function(err, fires) {
+      if (err) {
+        cb(err);
+        return;
+      }
+      cb(null, fires[0]);
+    });
+  }
 
   app.get('/', function(req, res) {
     res.render('index', { title: 'fgis-core' })
   });
 
   app.get('/feature/fire', function(req, res) {
-    console.log('GET ' + req.url);
-
     getFireFeatures(req.db, function(err, fires) {
       if (err) {
         res.send(500, err);
@@ -55,9 +63,17 @@ module.exports = function(app) {
     });
   });
 
-  app.post('/feature/fire', function(req, res) {
-    console.log('POST ' + req.url);
+  app.get('/feature/fire/:id', function(req, res) {
+    getFireFeature(req.db, req.params.id, function(err, fire) {
+      if (err) {
+        res.send(500, err);
+      } else {
+        res.send(fire);
+      }
+    });
+  });
 
+  app.post('/feature/fire', function(req, res) {
     addFireFeature(req.body, req.db, function(err, featureIds) {
       if (err) {
         res.send(500, err);

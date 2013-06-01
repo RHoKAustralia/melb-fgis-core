@@ -28,5 +28,5 @@ module.exports = function(cb){
 
   server.listen(8888)
 
-  cb(null, server)
+  cb(null, app)
 }

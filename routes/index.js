@@ -13,7 +13,7 @@ module.exports = function(app) {
       {
         'description': feature.description
       , 'geo':         feature.geo
-      , 'updatedAt':   new Date().getTime()
+      , 'updatedAt':   new Date()
       }
     ], function(err, items) {
       console.log(items);
@@ -23,14 +23,14 @@ module.exports = function(app) {
       }
       var successIds = [];
       for (var i = 0; i < items.length; i++) {
-        console.log(items[i]);
+        console.log(items[i].id);
         successIds.push(items[i].id);
       };
       cb(null, successIds);
     });
   }
   function getFireFeatures(db, cb) {
-    db.models.feature.find({'type':'fire'}, function(err, fires) {
+    db.models.feature.find({}, function(err, fires) {
       if (err) {
         cb(err);
         return;
@@ -41,7 +41,7 @@ module.exports = function(app) {
 
   app.get('/', function(req, res) {
     res.render('index', { title: 'fgis-core' })
-  })
+  });
 
   app.get('/feature/fire', function(req, res) {
     console.log('GET ' + req.url);

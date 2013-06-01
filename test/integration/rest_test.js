@@ -1,10 +1,16 @@
 var should = require('should');
-//var fgisOrm = require('../../lib/fgis-orm');
 var express = require('express');
 var request = require('supertest');
 var fs = require('fs');
 
 var serverHelper = require('../helper/server_helper.js');
+
+function logObject(obj) {
+  console.log('- logObject:', require('util').inspect(obj));
+}
+function logObject(label, obj) {
+  console.log('-', label, require('util').inspect(obj));
+}
 
 describe('orm', function() {
   var app;
@@ -17,21 +23,60 @@ describe('orm', function() {
     });
   });
 
-  it('adds and deletes a feature from the database', function(done) {
-    fs.readFile('test/fixtures/fire_good.json', 'utf-8', function(err, data) {
+  it('adds a feature to the database', function(done) {
+    fs.readFile('test/fixtures/fire_ugly.json', 'utf-8', function(fsErr, data) {
       //console.log('- data:', require('util').inspect(data));
-      if (err) throw err
+      if (fsErr) throw fsErr
 
       request(app)
         .post('/feature/fire')
         .set('Content-Type', 'application/json')
         .send(data)
         .end(function(err, res) {
-          console.log('- res:', require('util').inspect(res.text));
-          res.should.have.status(200);
+          if (err) throw err;
+          res.should.have.status(201);
+          //logObject('res.body:', res.body);
           done();
         });
     });
+  });
+
+  it('gets features from the database', function(done) {
+    request(app)
+      .get('/feature/fire')
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(200, done);
+  });
+
+  it('gets a feature from the database', function(done) {
+    done();
+    return;
+    request(app)
+      .get('/feature/fire/1')
+      .end(function(err, resp) {
+        console.log('bwahahaha');
+        console.log(err);
+        logObject('resp.body:', resp.text);
+        //console.log('- resp:', require('util').inspect(resp.text));
+        resp.should.have.status(200);
+        done();
+      });
+  });
+
+  it('deletes a feature from the database', function(done) {
+    done();
+    return;
+    request(app)
+      .delete('/feature/fire/7')
+      .end(function(err, resp) {
+        console.log('bwahahaha');
+        console.log(err);
+        logObject('resp.body:', resp.text);
+        //console.log('- resp:', require('util').inspect(resp.text));
+        resp.should.have.status(200);
+        done();
+      });
   });
 
 });

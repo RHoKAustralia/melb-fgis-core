@@ -1,5 +1,5 @@
 var should = require('should')
-, fgisOrm = require('../lib/fgis-orm')
+, fgisOrm = require('../../lib/fgis-orm')
 , express = require('express');
 
 describe('orm', function() {

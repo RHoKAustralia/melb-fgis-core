@@ -1,5 +1,4 @@
 module.exports = function(app) {
-  var localApp = app;
 
   function logObject(obj) {
     console.log('- logObject:', require('util').inspect(obj));

@@ -32,12 +32,7 @@ describe('orm', function() {
         .post('/feature/fire')
         .set('Content-Type', 'application/json')
         .send(data)
-        .end(function(err, res) {
-          if (err) return done(err);
-          res.should.have.status(201);
-          //logObject('res.body:', res.body);
-          done();
-        });
+        .expect(201, done);
     });
   });
 

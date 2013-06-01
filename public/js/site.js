@@ -38,6 +38,11 @@
             this.markers = {}
           }
         , render: function() {
+            $('#critical').on('click', this.critical);
+            $('#overlay').on('click', this.overlay);
+            $('#team').on('click', this.team);
+            $('#weather').on('click', this.weather);
+            $('#feed').on('click', this.feed);
             this.map = L.map('map').setView([-37.793566209439, 144.94111608134], 14)
 
             L.tileLayer('http://{s}.tile.cloudmade.com/aeb94991e883413e8262bd55def34111/997/256/{z}/{x}/{y}.png',
@@ -46,7 +51,6 @@
               , maxZoom: 18
               }
             ).addTo(this.map)
-
             return this
           }
         , addMarkers: function() {
@@ -57,6 +61,51 @@
           }
         , changeMarker: function(poi) {
             this.markers[poi.id].setLatLng([poi.attributes.lat, poi.attributes.long])
+          }
+        , critical: function() {
+            $('#top-menu a.selected').removeClass('selected');
+            $('#critical').addClass('selected');
+          }
+        , overlay: function() {
+            $('#top-menu a.selected').removeClass('selected');
+            $('#overlay').addClass('selected');
+          }
+        , team: function() {
+            if($('#team').hasClass('selected')) {
+              $('#bottom-menu a.selected').removeClass('selected');
+              $('#data-frame').fadeOut('fast');
+            } else  {
+              $('#bottom-menu a.selected').removeClass('selected');
+              $('#team').addClass('selected');
+              $('#data-frame').fadeIn('fast');
+              $('#data-frame').empty();
+              $('#data-frame').append('<p>Team Test</p>');
+            }
+            
+          }
+        , weather: function() {
+            if($('#weather').hasClass('selected')) {
+              $('#bottom-menu a.selected').removeClass('selected');
+              $('#data-frame').fadeOut('fast');
+            } else  {
+              $('#bottom-menu a.selected').removeClass('selected');
+              $('#weather').addClass('selected');
+              $('#data-frame').fadeIn('fast');
+              $('#data-frame').empty();
+              $('#data-frame').append('<p>Weather Test</p>');
+            }
+          }
+        , feed: function() {
+            if($('#feed').hasClass('selected')) {
+              $('#bottom-menu a.selected').removeClass('selected');
+              $('#data-frame').fadeOut('fast');
+            } else  {
+              $('#bottom-menu a.selected').removeClass('selected');
+              $('#feed').addClass('selected');
+              $('#data-frame').fadeIn('fast');
+              $('#data-frame').empty();
+              $('#data-frame').append('<p>Feed Test</p>');
+            }
           }
         }
       )
@@ -102,7 +151,7 @@
 
       app.event = data.event;
 
-      L.geoJson(event.event.featureCollection).addTo(app.views.map)
+      L.geoJson(event.featureCollection).addTo(app.views.map)
 
       // update the map
 

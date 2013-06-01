@@ -1,9 +1,94 @@
+body, html {
+  height: 100%;
+}
+
 body {
+    font-weight: bold;
+    color: #e8e2d2;
+}
+
+.container {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
+.page-footer{
     padding-top: 60px;
     padding-bottom: 40px;
 }
 
-.page-footer{
-    padding-top: 60px;
-    padding-bottom: 40px;
+.main {
+    margin-top: 40px;
+    height: 100%;
+}
+
+#map {
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.leaflet-control-zoom {
+    display: none;
+}
+
+.leaflet-popup-content {
+    color: black;
+}
+ /*border-right: 1px solid #ddd;*/
+#bottom-menu {
+  position: absolute;
+  z-index: 2;
+  bottom: 25px;
+  left: 40%;
+  box-shadow: 3px 3px 3px rgba(1,1,1,0.5);
+  border-radius: 5px;
+}
+
+#left-menu {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 2;
+  box-shadow: 3px 3px 3px rgba(1,1,1,0.5);
+  border-radius: 5px;
+}
+
+#top-menu {
+  position: absolute;
+  top: 10px;
+  left: 42%;
+  z-index: 2;
+  box-shadow: 3px 3px 3px rgba(1,1,1,0.5);
+  border-radius: 5px;
+}
+
+#right-menu {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+  box-shadow: 3px 3px 3px rgba(1,1,1,0.5);
+  border-radius: 5px;
+}
+
+#data-frame {
+  position: absolute;
+  z-index: 2;
+  top: 50px;
+  left: 0;
+  height: 80%;
+  width: 30%;
+  background-color:  rgba(0,0,0,0.5);
+  display: none;
+  color: white;
+}
+
+.pure-button.selected {
+  color: #F54143;
 }

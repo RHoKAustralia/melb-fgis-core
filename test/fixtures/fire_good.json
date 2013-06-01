@@ -1,0 +1,15 @@
+{
+  "description": "lol!"
+, "updatedAt": 0
+, "geo": {
+    "type": "FeatureCollection"
+  , "features": [ {
+      "type": "Feature"
+    , "properties": { "description": "origin" }
+    , "geometry": {
+        "type": "Point"
+      , "coordinates": [ 15875934.464566292, -4372289.554702327 ]
+      }
+    } ]
+  }
+}

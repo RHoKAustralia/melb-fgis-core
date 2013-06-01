@@ -16,6 +16,7 @@ module.exports = function (app, configurations, express, logger) {
 
     // Development Configuration
     app.configure('development', 'test', function () {
+        console.log('ENV DEV / TEST')
         // register the request logger
         app.use(requestLogger.create(logger))
         app.set('DEBUG', true)

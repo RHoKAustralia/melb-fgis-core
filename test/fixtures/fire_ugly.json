@@ -1,1 +1,6 @@
-{"description":"fire_ugly.json","updatedAt":0,"geo":{}}
+{"description": "fire_ugly.json", "updatedAt": 0, "geo": {
+  "geometry": {
+    "type": "Point",
+    "coordinates": [ 15875934.464566292, -4372289.554702327 ]
+  }
+}}

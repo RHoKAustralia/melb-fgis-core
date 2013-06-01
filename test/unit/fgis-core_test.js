@@ -3,10 +3,4 @@ var should = require('should'),
 
 
 describe('fgis-core', function () {
-    before(function () {
-
-    })
-    it('should be awesome', function(){
-        fgis_core.awesome().should.eql('awesome')
-    })
 })

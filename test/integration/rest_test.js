@@ -3,14 +3,8 @@ var express = require('express');
 var request = require('supertest');
 var fs = require('fs');
 
+var logObject = require('../../lib/util.js').logObject
 var serverHelper = require('../helper/server_helper.js');
-
-function logObject(obj) {
-  console.log('- logObject:', require('util').inspect(obj));
-}
-function logObject(label, obj) {
-  console.log('-', label, require('util').inspect(obj));
-}
 
 describe('orm', function() {
   var app;

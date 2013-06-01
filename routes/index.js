@@ -9,8 +9,6 @@ module.exports = function(app) {
   }
 
   function addFireFeature(feature, db, cb) {
-    logObject('addFireFeature', feature);
-
     db.models.feature.create([
       {
         'description': feature.description
@@ -59,7 +57,6 @@ module.exports = function(app) {
 
   app.post('/feature/fire', function(req, res) {
     console.log('POST ' + req.url);
-    logObject('req', req);
 
     addFireFeature(req.body, req.db, function(err, featureIds) {
       if (err) {

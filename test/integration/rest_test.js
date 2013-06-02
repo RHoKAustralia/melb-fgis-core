@@ -52,8 +52,8 @@ describe('orm', function() {
       .expect(200, done);
   });
 
-  it('deletes a feature from the database', function(done) {
-    /*var path = '/feature/fire/' + tempId;
+  it('deletes a feature from the database'); /*, function(done) {
+    var path = '/feature/fire/' + tempId;
     log('path', path);
     request(app)
       .del(path)
@@ -61,8 +61,8 @@ describe('orm', function() {
         log('end');
         res.should.have.status(200);
         done(err);
-      });*/
+      });
     done();
-  });
+  });*/
 
 });

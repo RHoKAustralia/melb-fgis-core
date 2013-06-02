@@ -31,11 +31,22 @@ module.exports = function(app) {
   });
 
   app.post('/feature/fire', function(req, res) {
-    feature.addFireFeature(req.body, req.db, function(err, featureIds) {
+    feature.addFireFeature(req.body, req.db, function(err, featureId) {
       if (err) {
         res.send(500, err);
       } else {
-        res.send(201, featureIds);
+        res.send(201, {id: featureId});
+      }
+    });
+  });
+
+  app.delete('/feature/fire/:id', function(req, res) {
+    log(request.method, request.url);
+    feature.deleteFireFeature(req.db, req.params.id, function(err, fire) {
+      if (err) {
+        res.send(500, err);
+      } else {
+        res.send();
       }
     });
   });

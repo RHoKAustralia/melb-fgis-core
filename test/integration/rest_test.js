@@ -3,7 +3,7 @@ var express = require('express');
 var request = require('supertest');
 var fs = require('fs');
 
-var logObject = require('debug')('test')
+var log = require('debug')('test')
 
 var serverHelper = require('../helper/server_helper.js');
 
@@ -18,17 +18,21 @@ describe('orm', function() {
     });
   });
 
+  var tempId;
   it('adds a feature to the database', function(done) {
     fs.readFile('test/fixtures/fire_ugly.json', 'utf-8', function(fsErr, data) {
       //console.log('- data:', require('util').inspect(data));
-      logObject('some data', data);
       if (fsErr) throw fsErr
 
       request(app)
         .post('/feature/fire')
         .set('Content-Type', 'application/json')
         .send(data)
-        .expect(201, done);
+        .end(function(err, res) {
+          res.should.have.status(201);
+          tempId = JSON.parse(res.text).id;
+          done(err);
+        });
     });
   });
 
@@ -49,18 +53,16 @@ describe('orm', function() {
   });
 
   it('deletes a feature from the database', function(done) {
-    done();
-    return;
+    /*var path = '/feature/fire/' + tempId;
+    log('path', path);
     request(app)
-      .delete('/feature/fire/7')
-      .end(function(err, resp) {
-        if (err) return done(err);
-        console.log('bwahahaha');
-        logObject('resp.body:', resp.text);
-        //console.log('- resp:', require('util').inspect(resp.text));
-        resp.should.have.status(200);
-        done();
-      });
+      .del(path)
+      .end(function(err, res) {
+        log('end');
+        res.should.have.status(200);
+        done(err);
+      });*/
+    done();
   });
 
 });

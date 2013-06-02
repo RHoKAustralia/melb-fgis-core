@@ -1,3 +1,7 @@
+var winston = require('winston');
+var requestLogger = require('winston-request-logger');
+var logger = new (winston.Logger)({ transports: [ new (winston.transports.Console)({colorize:true}) ] });
+
 module.exports = function(cb){
 
   var express = require('express')
@@ -6,6 +10,8 @@ module.exports = function(cb){
     , nconf = require('nconf')
     , winston = require('winston')
     , fgisOrm = require('../../lib/fgis-orm')
+
+  app.use(requestLogger.create(logger))
 
   app.use(express.bodyParser())
 

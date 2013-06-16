@@ -1,0 +1,13 @@
+{
+  "description": "location.json"
+, "geo": {
+    "type": "FeatureCollection"
+  , "features": [ {
+      "type": "Feature"
+    , "geometry": {
+        "type": "Point"
+      , "coordinates": [ 15875935.464566292, -4372289.554702327 ]
+      }
+    } ]
+  }
+}

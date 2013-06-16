@@ -19,10 +19,10 @@ describe('orm', function() {
   });
 
   var tempId;
-  it('adds a feature to the database', function(done) {
+  it('adds a fire feature to the database', function(done) {
     fs.readFile('test/fixtures/fire_ugly.json', 'utf-8', function(fsErr, data) {
       //console.log('- data:', require('util').inspect(data));
-      if (fsErr) throw fsErr
+      if (fsErr) throw fsErr;
 
       request(app)
         .post('/feature/fire')
@@ -36,7 +36,7 @@ describe('orm', function() {
     });
   });
 
-  it('gets features from the database', function(done) {
+  it('gets fire features from the database', function(done) {
     request(app)
       .get('/feature/fire')
       .set('Accept', 'application/json')
@@ -44,16 +44,80 @@ describe('orm', function() {
       .expect(200, done);
   });
 
-  it('gets a feature from the database', function(done) {
+  it('gets a fire feature from the database', function(done) {
     request(app)
-      .get('/feature/fire/1')
+      .get('/feature/fire/' + tempId)
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .end(function(err, res) {
+        res.should.have.status(200);
+        var body = JSON.parse(res.text);
+
+        body.id.should.equal(tempId);
+        body.type.should.equal('fire');
+        body.description.should.equal('fire_ugly.json');
+
+        done(err);
+      });
+  });
+
+  it('deletes a fire feature from the database'); /*, function(done) {
+    var path = '/feature/fire/' + tempId;
+    log('path', path);
+    request(app)
+      .del(path)
+      .end(function(err, res) {
+        log('end');
+        res.should.have.status(200);
+        done(err);
+      });
+    done();
+  });*/
+
+  it('adds a location feature to the database', function(done) {
+    fs.readFile('test/fixtures/location.json', 'utf-8', function(fsErr, data) {
+      //console.log('- data:', require('util').inspect(data));
+      if (fsErr) throw fsErr;
+
+      request(app)
+        .post('/feature/location')
+        .set('Content-Type', 'application/json')
+        .send(data)
+        .end(function(err, res) {
+          res.should.have.status(201);
+          tempId = JSON.parse(res.text).id;
+          done(err);
+        });
+    });
+  });
+
+  it('gets location features from the database', function(done) {
+    request(app)
+      .get('/feature/location')
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(200, done);
   });
 
-  it('deletes a feature from the database'); /*, function(done) {
-    var path = '/feature/fire/' + tempId;
+  it('gets a location feature from the database', function(done) {
+    request(app)
+      .get('/feature/location/' + tempId)
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .end(function(err, res) {
+        res.should.have.status(200);
+        var body = JSON.parse(res.text);
+
+        body.id.should.equal(tempId);
+        body.type.should.equal('location');
+        body.description.should.equal('location.json');
+
+        done(err);
+      });
+  });
+
+  it('deletes a location feature from the database'); /*, function(done) {
+    var path = '/feature/location/' + tempId;
     log('path', path);
     request(app)
       .del(path)

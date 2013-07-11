@@ -1,6 +1,5 @@
-var should = require('should'),
-    fgis_core = require('../../lib/fgis-core.js')
+var should = require('should');
+var fgis_core = require('../../lib/fgis-core.js');
 
-
-describe('fgis-core', function () {
-})
+describe('fgis-core', function() {
+});

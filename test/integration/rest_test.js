@@ -3,7 +3,13 @@ var express = require('express');
 var request = require('supertest');
 var fs = require('fs');
 
-var log = require('debug')('test')
+var log = require('debug')('test');
+var assertStatus = function(response, code) {
+  if (response.status != code) {
+    log('Error: ' + response.text);
+  }
+  response.should.have.status(code);
+}
 
 var serverHelper = require('../helper/server_helper.js');
 
@@ -29,7 +35,7 @@ describe('orm', function() {
         .set('Content-Type', 'application/json')
         .send(data)
         .end(function(err, res) {
-          res.should.have.status(201);
+          assertStatus(res, 201);
           tempId = JSON.parse(res.text).id;
           done(err);
         });
@@ -84,7 +90,7 @@ describe('orm', function() {
         .set('Content-Type', 'application/json')
         .send(data)
         .end(function(err, res) {
-          res.should.have.status(201);
+          assertStatus(res, 201);
           tempId = JSON.parse(res.text).id;
           done(err);
         });

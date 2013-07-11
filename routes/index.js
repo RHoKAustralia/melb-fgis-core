@@ -52,6 +52,7 @@ module.exports = function(app) {
     var ft = req.params.featureType;
     feature[ft].addOne(req.db, req.body, defaultAddResponse(res));
   });
+  //TODO: app.put('/feature/:featureType/:id')
   app.delete('/feature/:featureType/:id', function(req, res) {
     var ft = req.params.featureType;
     var id = req.params.id;

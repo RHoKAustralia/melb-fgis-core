@@ -1,3 +1,4 @@
+"use strict";
 var winston = require('winston');
 var requestLogger = require('winston-request-logger');
 var logger = new (winston.Logger)({ transports: [ new (winston.transports.Console)({colorize:true}) ] });

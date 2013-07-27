@@ -1,3 +1,4 @@
+"use strict";
 var should = require('should');
 var express = require('express');
 var request = require('supertest');

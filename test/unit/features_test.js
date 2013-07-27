@@ -1,3 +1,4 @@
+"use strict";
 var should = require('should');
 var features = require('../../lib/features.js');
 var log = require('debug')('test');

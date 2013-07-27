@@ -3,8 +3,8 @@ var should = require('should');
 var express = require('express');
 var request = require('supertest');
 var fs = require('fs');
-
 var log = require('debug')('test');
+
 var assertStatus = function(response, code) {
   if (response.status != code) {
     log('Error: ' + response.text);

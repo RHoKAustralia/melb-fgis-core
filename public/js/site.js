@@ -1,5 +1,22 @@
 (function($) {
 
+  function toggleDataFrame(dataFrameId, title){
+
+    var idSelector = '#' + dataFrameId;
+
+    if($(idSelector).hasClass('selected')) {
+      $('#bottom-menu').find('a.selected').removeClass('selected');
+      $('#data-frame').fadeOut('fast');
+    } else {
+      $('#bottom-menu').find('a.selected').removeClass('selected');
+      $(idSelector).addClass('selected');
+      $('#data-frame').fadeIn('fast').empty().append('<p>' + title + '</p>');
+      window.primus.write('none');
+      window.primus.write(dataFrameId);
+    }
+
+  }
+
   var models =
     {
       Poi: Backbone.Model.extend(
@@ -63,49 +80,21 @@
             this.markers[poi.id].setLatLng([poi.attributes.lat, poi.attributes.long])
           }
         , critical: function() {
-            $('#top-menu a.selected').removeClass('selected');
+            $('#top-menu').find('a.selected').removeClass('selected');
             $('#critical').addClass('selected');
           }
         , overlay: function() {
-            $('#top-menu a.selected').removeClass('selected');
+            $('#top-menu').find('a.selected').removeClass('selected');
             $('#overlay').addClass('selected');
           }
         , team: function() {
-            if($('#team').hasClass('selected')) {
-              $('#bottom-menu a.selected').removeClass('selected');
-              $('#data-frame').fadeOut('fast');
-            } else  {
-              $('#bottom-menu a.selected').removeClass('selected');
-              $('#team').addClass('selected');
-              $('#data-frame').fadeIn('fast');
-              $('#data-frame').empty();
-              $('#data-frame').append('<p>Team Test</p>');
-            }
-            
+            toggleDataFrame('team', 'Team Test')
           }
         , weather: function() {
-            if($('#weather').hasClass('selected')) {
-              $('#bottom-menu a.selected').removeClass('selected');
-              $('#data-frame').fadeOut('fast');
-            } else  {
-              $('#bottom-menu a.selected').removeClass('selected');
-              $('#weather').addClass('selected');
-              $('#data-frame').fadeIn('fast');
-              $('#data-frame').empty();
-              $('#data-frame').append('<p>Weather Test</p>');
-            }
+            toggleDataFrame('weather', 'Weather Test')
           }
         , feed: function() {
-            if($('#feed').hasClass('selected')) {
-              $('#bottom-menu a.selected').removeClass('selected');
-              $('#data-frame').fadeOut('fast');
-            } else  {
-              $('#bottom-menu a.selected').removeClass('selected');
-              $('#feed').addClass('selected');
-              $('#data-frame').fadeIn('fast');
-              $('#data-frame').empty();
-              $('#data-frame').append('<p>Feed Test</p>');
-            }
+            toggleDataFrame('feed', 'Feed Test')
           }
         }
       )
@@ -143,8 +132,11 @@
     // Let's test it...
 
     // subscribe to stuff
-    app.socket = io.connect('http://localhost:3000')
+//    app.socket = io.connect('http://localhost:3000')
+    console.log('loading', 'primus')
+    window.primus = Primus.connect('ws://localhost:3000');
 
+/*
     app.socket.on('watchEvents', function(data){
 
       console.log(data)
@@ -163,6 +155,7 @@
 
 
     })
+*/
 
 
     setTimeout(function() {

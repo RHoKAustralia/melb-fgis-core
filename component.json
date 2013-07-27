@@ -9,7 +9,6 @@
     "backbone": "~0.9.10",
     "leaflet": "~0.5.1",
     "underscore": "~1.4.4",
-    "socket.io-client": "~0.9.11",
     "font-awesome": "~3.1.1"
   }
 }

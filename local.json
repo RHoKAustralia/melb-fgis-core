@@ -25,8 +25,8 @@
         "/components/backbone/backbone-min.js":[
             "/components/backbone/backbone.js"
         ],
-        "/components/socket.io/dist/socket.io.min.js":[
-            "/components/socket.io/dist/socket.io.js"
+        "/js/primus.js":[
+            "/js/primus.js"
         ],
         "/components/bootstrap/docs/assets/js/bootstrap.min.js":[
             "/components/bootstrap/docs/assets/js/bootstrap.js"

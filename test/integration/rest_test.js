@@ -14,7 +14,7 @@ var assertStatus = function(response, code) {
 
 var serverHelper = require('../helper/server_helper.js');
 
-describe('orm', function() {
+describe('[REST] orm', function() {
   var app;
 
   before(function(done) {

@@ -33,7 +33,7 @@ primus.save(__dirname +'/public/js/primus.js');
 // add rooms to Primus
 primus.use('rooms', Rooms);
 
-require('./lib/socketio.js')(primus)
+//require('./lib/socketio.js')(primus)
 
 
 logger.info('listening on', nconf.get('port'))

@@ -11,7 +11,7 @@ module.exports = function(app) {
   var defaultResponse = function(res) {
     return function(err, data) {
       if (err) {
-        res.send(500, err);
+        res.send(err.status || 500, err.message || err);
       } else {
         res.send(data);
       }
@@ -20,7 +20,7 @@ module.exports = function(app) {
   var defaultAddResponse = function(res) {
     return function(err, featureInfo) {
       if (err) {
-        res.send(500, err);
+        res.send(err.status || 500, err.message || err);
       } else {
         res.send(201, featureInfo);
       }
@@ -29,7 +29,7 @@ module.exports = function(app) {
   var defaultDeleteResponse = function(res) {
     return function(err, featureId) {
       if (err) {
-        res.send(500, err);
+        res.send(err.status || 500, err.message || err);
       } else {
         res.send();
       }

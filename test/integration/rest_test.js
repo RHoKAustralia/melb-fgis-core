@@ -25,6 +25,22 @@ describe('[REST] orm', function() {
     });
   });
 
+  it('yields a 400 when attempting to add bad JSON', function(done) {
+    fs.readFile('test/fixtures/fire_bad.json', 'utf-8', function(fsErr, data) {
+      if (fsErr) throw fsErr;
+
+      request(app)
+        .post('/feature/fire')
+        .set('Content-Type', 'application/json')
+        .send(data)
+        .end(function(err, res) {
+          assertStatus(res, 400);
+          log('Error messages: ' + res.text);
+          done(err);
+        });
+    });
+  });
+
   var tempId;
   it('adds a fire feature to the database', function(done) {
     fs.readFile('test/fixtures/fire_ugly.json', 'utf-8', function(fsErr, data) {
@@ -68,7 +84,7 @@ describe('[REST] orm', function() {
       });
   });
 
-  it('deletes a fire feature from the database'); /*, function(done) {
+  it('deletes a fire feature from the database', function(done) {
     var path = '/feature/fire/' + tempId;
     log('path', path);
     request(app)
@@ -78,8 +94,7 @@ describe('[REST] orm', function() {
         res.should.have.status(200);
         done(err);
       });
-    done();
-  });*/
+  });
 
   it('adds a location feature to the database', function(done) {
     fs.readFile('test/fixtures/location.json', 'utf-8', function(fsErr, data) {
@@ -123,7 +138,7 @@ describe('[REST] orm', function() {
       });
   });
 
-  it('deletes a location feature from the database'); /*, function(done) {
+  it('deletes a location feature from the database', function(done) {
     var path = '/feature/location/' + tempId;
     log('path', path);
     request(app)
@@ -133,7 +148,6 @@ describe('[REST] orm', function() {
         res.should.have.status(200);
         done(err);
       });
-    done();
-  });*/
+  });
 
 });

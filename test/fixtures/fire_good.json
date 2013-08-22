@@ -1,6 +1,5 @@
 {
   "description": "fire_good.json"
-, "updatedAt": "2013-07-27T04:23:14.207Z"
 , "geo": {
     "type": "FeatureCollection"
   , "features": [ {
@@ -8,7 +7,7 @@
     , "properties": { "description": "origin" }
     , "geometry": {
         "type": "Point"
-      , "coordinates": [ 15875934.464566292, -4372289.554702327 ]
+      , "coordinates": [ 15777777.777, -4377777.777 ]
       }
     } ]
   }

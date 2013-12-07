@@ -148,11 +148,18 @@
         return this
       },
       addMarker: function(poi) {
-        var marker = L.geoJson(poi.get('geo'), this.styleMap[poi.get('type')](poi))
-        marker.addTo(this.map);
+        try {
+          var marker = L.geoJson(poi.get('geo'), this.styleMap[poi.get('type')](poi));
+          marker.addTo(this.map);
+        } catch (e) {
+          console.log("Could not add marker for POI", poi, e);
+        }
       },
       changeMarker: function(poi) {
-        this.markers[poi.id].setLatLng(poi.latLng())
+        var marker = this.markers[poi.id];
+        if (marker) {
+          marker.setLatLng(poi.latLng());
+        }
       },
       critical: function() {
         $('#top-menu').find('a.selected').removeClass('selected');

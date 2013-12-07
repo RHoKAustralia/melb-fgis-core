@@ -85,6 +85,12 @@
       writeLocationId: function(response) {
         localStorage.setItem('my_location_id', response.get('id'));
       },
+      startFollowing: function() {
+        var lc = L.control.locate().addTo(this.map);
+
+        this.map.on('locationfound', this.locationFound);
+        lc.locate();
+      },
       locationFound: function(locationEv) {
         console.log("location found again")
         var locationId = localStorage.getItem('my_location_id')
@@ -120,17 +126,11 @@
         $('#weather').on('click', this.weather);
         $('#feed').on('click', this.feed);
         this.map = L.map('map').setView([-37.793566209439, 144.94111608134], 14)
-        var lc = L.control.locate().addTo(this.map);
-
-        app.views.home.map.on('locationfound', this.locationFound);
-        lc.locate();
 
         L.tileLayer('http://{s}.tile.cloudmade.com/aeb94991e883413e8262bd55def34111/997/256/{z}/{x}/{y}.png', {
           attribution: 'Made with love at <a href="https://github.com/vertis/rhok-fgis/">RHoK Melbourne</a>, Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
           maxZoom: 18
         }).addTo(this.map)
-
-
 
         return this
       },
@@ -188,6 +188,12 @@
 
     app.router.on('route:home', function() {
       app.views.home.render()
+      app.pois.fetch({
+        update: true,
+        success: function() {
+          app.views.home.startFollowing();
+        }
+      });
     })
 
     Backbone.history.start()
@@ -224,13 +230,6 @@
     // navigator.geolocation.getCurrentPosition(function(position) {
     //   afterLocation(position.coords.latitude, position.coords.longitude);
     // });
-
-    setTimeout(function() {
-      app.pois.fetch({
-        update: true
-      });
-
-    }, 300)
 
     // setTimeout(function() {
     // app.pois.get(1234).set({

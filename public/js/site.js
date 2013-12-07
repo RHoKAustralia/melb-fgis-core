@@ -82,10 +82,15 @@
         'location': function(poi) {
           return {
             pointToLayer: function(feature, latlng) {
-              return app.views.home.markers[poi.id] = L.circleMarker(latlng, {
+              if (app.views.home.markers[poi.id]) {
+                console.log("Duplicate marker for " + poi.id)
+              }
+              var marker = app.views.home.markers[poi.id] = L.circleMarker(latlng, {
                 color: "#0000FF",
                 fillOpacity: 0.8
               });
+              marker.bindPopup(poi.get('description'));
+              return marker;
             }
           };
         }
@@ -147,7 +152,6 @@
       },
       addMarker: function(poi) {
         var marker = L.geoJson(poi.get('geo'), this.styleMap[poi.get('type')](poi))
-        marker.bindPopup(poi.get('description'));
         marker.addTo(this.map);
       },
       changeMarker: function(poi) {

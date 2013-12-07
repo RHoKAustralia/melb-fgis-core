@@ -20,12 +20,19 @@ Once created you can set up your web application project by running the followin
 
 ```
 npm install
-```
 
-* Run bower to install UI dependencies.
+* Install postgres:
+(mac osx): 
+```
+brew install postgres
+
+* Create role and database
 
 ```
-bower install
+CREATE DATABASE fgis_development;
+CREATE ROLE fgis_development;
+
+
 ```
 
 * Start the application.

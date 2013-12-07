@@ -64,7 +64,7 @@
 
         this.pois = options.pois
 
-        this.pois.on('add', this.addMarkers)
+        this.pois.on('add', this.addMarker)
         this.pois.on('change', this.changeMarker)
 
         this.markers = {}
@@ -146,9 +146,6 @@
         }).addTo(this.map)
 
         return this
-      },
-      addMarkers: function() {
-        _.each(this.pois.models, this.addMarker)
       },
       addMarker: function(poi) {
         var marker = L.geoJson(poi.get('geo'), this.styleMap[poi.get('type')](poi))

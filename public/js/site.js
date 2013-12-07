@@ -64,6 +64,8 @@
         $('#weather').on('click', this.weather);
         $('#feed').on('click', this.feed);
         this.map = L.map('map').setView([-37.793566209439, 144.94111608134], 14)
+        var lc = L.control.locate().addTo(this.map);
+        lc.locate();
 
         L.tileLayer('http://{s}.tile.cloudmade.com/aeb94991e883413e8262bd55def34111/997/256/{z}/{x}/{y}.png', {
           attribution: 'Made with love at <a href="https://github.com/vertis/rhok-fgis/">RHoK Melbourne</a>, Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',

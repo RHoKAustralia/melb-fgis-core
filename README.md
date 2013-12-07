@@ -16,22 +16,36 @@ These project include:
 
 Once created you can set up your web application project by running the following commands.
 
-* Firstly run npm to install modules.
-
-```
-npm install
+Prerequisites:
+npm, bower, xcode (for mac osx), postgres
 
 * Install postgres:
 (mac osx): 
 ```
 brew install postgres
+```
+
+* Install bower
+
+```
+npm install -g bower
+```
 
 * Create role and database
 
 ```
 CREATE DATABASE fgis_development;
 CREATE ROLE fgis_development CREATEDB LOGIN;
+```
 
+* Run npm to install modules.
+
+```
+npm install
+```
+* Then bower
+```
+bower install
 
 ```
 

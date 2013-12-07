@@ -21,6 +21,7 @@ npm, bower, xcode (for mac osx), postgres
 
 * Install postgres:
 (mac osx): 
+
 ```
 brew install postgres
 ```
@@ -44,6 +45,7 @@ CREATE ROLE fgis_development CREATEDB LOGIN;
 npm install
 ```
 * Then bower
+
 ```
 bower install
 

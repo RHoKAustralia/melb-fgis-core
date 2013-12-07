@@ -25,6 +25,10 @@
   })
   models.Location = models.Poi.extend({
     urlRoot: '/feature/location',
+    latLng: function() {
+      var coordinates = this.get('geo').features[0].geometry.coordinates;
+      return L.latLng(coordinates[1], coordinates[0])
+    },
     updateLatLng: function(latlng) {
       this.set('geo', {
         "type": "FeatureCollection",
@@ -66,20 +70,24 @@
         this.markers = {}
       },
       styleMap: {
-        'fire': {
-          style: {
-            color: "#EE0000",
-            weight: 5,
-            opacity: 0.65
-          }
+        'fire': function(poi) {
+          return {
+            style: {
+              color: "#EE0000",
+              weight: 5,
+              opacity: 0.65
+            }
+          };
         },
-        'location': {
-          pointToLayer: function(feature, latlng) {
-            return L.circleMarker(latlng, {
-              color: "#0000FF",
-              fillOpacity: 0.8
-            });
-          }
+        'location': function(poi) {
+          return {
+            pointToLayer: function(feature, latlng) {
+              return app.views.home.markers[poi.id] = L.circleMarker(latlng, {
+                color: "#0000FF",
+                fillOpacity: 0.8
+              });
+            }
+          };
         }
       },
       writeLocationId: function(response) {
@@ -138,13 +146,12 @@
         _.each(this.pois.models, this.addMarker)
       },
       addMarker: function(poi) {
-        var marker = L.geoJson(poi.get('geo'), this.styleMap[poi.get('type')])
+        var marker = L.geoJson(poi.get('geo'), this.styleMap[poi.get('type')](poi))
         marker.bindPopup(poi.get('description'));
         marker.addTo(this.map);
-
       },
       changeMarker: function(poi) {
-        // this.markers[poi.id].setLatLng([poi.attributes.lat, poi.attributes.long])
+        this.markers[poi.id].setLatLng(poi.latLng())
       },
       critical: function() {
         $('#top-menu').find('a.selected').removeClass('selected');

@@ -75,7 +75,11 @@
         _.each(this.pois.models, this.addMarker)
       },
       addMarker: function(poi) {
-        L.geoJson(poi.get('geo'), this.styleMap[poi.get('type')]).addTo(this.map);
+
+        var marker = L.geoJson(poi.get('geo'), this.styleMap[poi.get('type')])
+        marker.bindPopup(poi.get('description'));
+        marker.addTo(this.map);
+
       },
       changeMarker: function(poi) {
         // this.markers[poi.id].setLatLng([poi.attributes.lat, poi.attributes.long])

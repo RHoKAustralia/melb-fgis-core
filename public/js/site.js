@@ -17,13 +17,38 @@
 
   }
 
-  var models = {
-    Poi: Backbone.Model.extend({})
+  var models = {}
+  models.Poi = Backbone.Model.extend({
+    toJSON: function(options) {
+      return _.omit(this.attributes, ['id', 'type'])
+    }
+  })
+  models.Location = models.Poi.extend({
+    urlRoot: '/feature/location',
+    updateLatLng: function(latlng) {
+      this.set('geo', {
+        "type": "FeatureCollection",
+        "features": [{
+          "type": "Feature",
+          "geometry": {
+            "type": "Point",
+            "coordinates": [latlng.lng, latlng.lat]
+          }
+        }]
+      });
+    }
+  });
+  var modelForType = {
+    location: models.Location,
+    fire: models.Poi
   }
 
   var collections = {
     Pois: Backbone.Collection.extend({
-      model: models.Poi,
+      model: function(attrs, options) {
+        var model = modelForType[attrs.type];
+        return new model(attrs, options);
+      },
       url: '/feature',
     })
   }
@@ -57,6 +82,37 @@
           }
         }
       },
+      writeLocationId: function(response) {
+        localStorage.setItem('my_location_id', response.get('id'));
+      },
+      locationFound: function(locationEv) {
+        console.log("location found again")
+        var locationId = localStorage.getItem('my_location_id')
+        if (locationId) {
+          app.myLocation = app.pois.get(locationId)
+        }
+        if (app.myLocation) {
+          app.myLocation.updateLatLng(locationEv.latlng)
+          app.myLocation.save();
+        } else {
+          app.myLocation = app.pois.create(new models.Location({
+            description: "My Location",
+            type: 'location',
+            geo: {
+              type: "FeatureCollection",
+              features: [{
+                type: "Feature",
+                geometry: {
+                  type: "Point",
+                  coordinates: [locationEv.latlng.lng, locationEv.latlng.lat]
+                }
+              }]
+            }
+          }), {
+            success: this.writeLocationId
+          });
+        }
+      },
       render: function() {
         $('#critical').on('click', this.critical);
         $('#overlay').on('click', this.overlay);
@@ -65,19 +121,23 @@
         $('#feed').on('click', this.feed);
         this.map = L.map('map').setView([-37.793566209439, 144.94111608134], 14)
         var lc = L.control.locate().addTo(this.map);
+
+        app.views.home.map.on('locationfound', this.locationFound);
         lc.locate();
 
         L.tileLayer('http://{s}.tile.cloudmade.com/aeb94991e883413e8262bd55def34111/997/256/{z}/{x}/{y}.png', {
           attribution: 'Made with love at <a href="https://github.com/vertis/rhok-fgis/">RHoK Melbourne</a>, Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
           maxZoom: 18
         }).addTo(this.map)
+
+
+
         return this
       },
       addMarkers: function() {
         _.each(this.pois.models, this.addMarker)
       },
       addMarker: function(poi) {
-
         var marker = L.geoJson(poi.get('geo'), this.styleMap[poi.get('type')])
         marker.bindPopup(poi.get('description'));
         marker.addTo(this.map);
@@ -160,6 +220,10 @@
     })
 */
 
+    // // check local storage for location id, or use existing one.
+    // navigator.geolocation.getCurrentPosition(function(position) {
+    //   afterLocation(position.coords.latitude, position.coords.longitude);
+    // });
 
     setTimeout(function() {
       app.pois.fetch({

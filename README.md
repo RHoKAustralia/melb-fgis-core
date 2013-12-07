@@ -30,7 +30,7 @@ brew install postgres
 
 ```
 CREATE DATABASE fgis_development;
-CREATE ROLE fgis_development;
+CREATE ROLE fgis_development CREATEDB LOGIN;
 
 
 ```

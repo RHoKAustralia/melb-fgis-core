@@ -105,10 +105,7 @@
         localStorage.setItem('my_location_id', response.get('id'));
       },
       startFollowing: function() {
-        var locateControl = L.control.locate().addTo(this.map);
-
-        this.map.on('locationfound', this.locationFound);
-        locateControl.locate();
+        this.locateControl.locate();
       },
       locationFound: function(locationEv) {
         if (app.myLocation) {
@@ -133,6 +130,8 @@
             success: this.writeLocationId
           });
         }
+        this.otherLocations.bringToFront();
+        this.locateControl._circleMarker.bringToFront();
       },
       render: function() {
         $('#critical').on('click', this.critical);
@@ -140,12 +139,15 @@
         $('#team').on('click', this.team);
         $('#weather').on('click', this.weather);
         $('#feed').on('click', this.feed);
-        this.map = L.map('map').setView([-37.793566209439, 144.94111608134], 14);
+        var map = this.map = L.map('map').setView([-37.793566209439, 144.94111608134], 14)
 
         L.tileLayer('http://{s}.tile.cloudmade.com/aeb94991e883413e8262bd55def34111/997/256/{z}/{x}/{y}.png', {
           attribution: 'Made with love at <a href="https://github.com/organizations/rhok-melbourne/">RHoK Melbourne</a>, Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery &copy; <a href="http://cloudmade.com">CloudMade</a>',
           maxZoom: 18
-        }).addTo(this.map);
+        }).addTo(map)
+        this.locateControl = L.control.locate().addTo(map);
+        this.otherLocations = L.featureGroup().addTo(map);
+        map.on('locationfound', this.locationFound);
 
         return this
       },
@@ -155,7 +157,7 @@
         }
         try {
           var marker = L.geoJson(poi.get('geo'), this.styleMap[poi.get('type')](poi));
-          marker.addTo(this.map);
+          marker.addTo(this.otherLocations);
         } catch (e) {
           console.log("Could not add marker for POI", poi, e);
         }

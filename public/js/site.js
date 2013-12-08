@@ -82,12 +82,18 @@
         'location': function(poi) {
           return {
             pointToLayer: function(feature, latlng) {
+              if (poi == app.myLocation) return;
+
               if (app.views.home.markers[poi.id]) {
                 console.log("Duplicate marker for " + poi.id)
               }
               var marker = app.views.home.markers[poi.id] = L.circleMarker(latlng, {
-                color: "#0000FF",
-                fillOpacity: 0.8
+                color: "#9BDC59",
+                fillColor: "#3A3",
+                fillOpacity: 1.0,
+                opacity: 1.0,
+                radius: 7.5,
+                weight: 2.5,
               });
               marker.bindPopup(poi.get('description'));
               return marker;
@@ -99,22 +105,17 @@
         localStorage.setItem('my_location_id', response.get('id'));
       },
       startFollowing: function() {
-        var lc = L.control.locate().addTo(this.map);
+        var locateControl = L.control.locate().addTo(this.map);
 
         this.map.on('locationfound', this.locationFound);
-        lc.locate();
+        locateControl.locate();
       },
       locationFound: function(locationEv) {
-        console.log("location found again")
-        var locationId = localStorage.getItem('my_location_id')
-        if (locationId) {
-          app.myLocation = app.pois.get(locationId)
-        }
         if (app.myLocation) {
           app.myLocation.updateLatLng(locationEv.latlng)
           app.myLocation.save();
         } else {
-          app.myLocation = app.pois.create(new models.Location({
+          app.myLocation = new models.Location({
             description: "My Location",
             type: 'location',
             geo: {
@@ -127,7 +128,8 @@
                 }
               }]
             }
-          }), {
+          });
+          app.pois.create(app.myLocation, {
             success: this.writeLocationId
           });
         }
@@ -148,6 +150,9 @@
         return this
       },
       addMarker: function(poi) {
+        if (!app.myLocation && poi.id == app.locationId) {
+          app.myLocation = poi;
+        }
         try {
           var marker = L.geoJson(poi.get('geo'), this.styleMap[poi.get('type')](poi));
           marker.addTo(this.map);
@@ -203,6 +208,7 @@
 
     app.router.on('route:home', function() {
       app.views.home.render()
+      app.locationId = localStorage.getItem('my_location_id')
       app.pois.fetch({
         update: true,
         success: function() {
@@ -217,8 +223,8 @@
 
     // subscribe to stuff
     //    app.socket = io.connect('http://localhost:3000')
-    console.log('loading', 'primus')
-    window.primus = Primus.connect('ws://localhost:3000');
+    //console.log('loading', 'primus')
+    //window.primus = Primus.connect('ws://localhost:3000');
 
     /*
     app.socket.on('watchEvents', function(data){

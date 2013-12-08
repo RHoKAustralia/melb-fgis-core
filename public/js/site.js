@@ -108,7 +108,7 @@
           app.myLocation.save();
         } else {
           app.myLocation = new models.Location({
-            description: "My Location",
+            description: "Vehicle " + Math.floor(Math.random() * 90 + 10),
             type: 'location',
             geo: {
               type: "FeatureCollection",

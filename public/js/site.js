@@ -82,8 +82,6 @@
         'location': function(poi) {
           return {
             pointToLayer: function(feature, latlng) {
-              if (poi == app.myLocation) return;
-
               if (app.views.home.markers[poi.id]) {
                 console.log("Duplicate marker for " + poi.id)
               }
@@ -154,6 +152,8 @@
       addMarker: function(poi) {
         if (!app.myLocation && poi.id == app.locationId) {
           app.myLocation = poi;
+          // no need to draw my own marker: leaflet-locatecontrol does that for us
+          return;
         }
         try {
           var marker = L.geoJson(poi.get('geo'), this.styleMap[poi.get('type')](poi));

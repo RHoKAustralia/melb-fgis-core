@@ -99,9 +99,6 @@
           };
         }
       },
-      writeLocationId: function(response) {
-        localStorage.setItem('my_location_id', response.get('id'));
-      },
       startFollowing: function() {
         this.locateControl.locate();
       },
@@ -124,8 +121,12 @@
               }]
             }
           });
-          app.pois.create(app.myLocation, {
-            success: this.writeLocationId
+          app.myLocation.save({}, {
+            success: function(myLocation) {
+              app.locationId = myLocation.id
+              localStorage.setItem('my_location_id', myLocation.id);
+              app.pois.add(myLocation);
+            }
           });
         }
         this.otherLocations.bringToFront();
@@ -152,6 +153,8 @@
       addMarker: function(poi) {
         if (!app.myLocation && poi.id == app.locationId) {
           app.myLocation = poi;
+        }
+        if (app.myLocation == poi) {
           // no need to draw my own marker: leaflet-locatecontrol does that for us
           return;
         }

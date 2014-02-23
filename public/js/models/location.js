@@ -1,6 +1,5 @@
-define(['./poi'], function(Poi) {
-  var Location = Poi.extend({
-    urlRoot: '/feature/location',
+define(['./feature'], function(Feature) {
+  var Location = Feature.extend({
     latLng: function() {
       var coordinates = this.get('geo').features[0].geometry.coordinates;
       return L.latLng(coordinates[1], coordinates[0])

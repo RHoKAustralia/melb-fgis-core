@@ -1,6 +1,6 @@
-define(['./models/poi', './models/location'], function(Poi, Location) {
+define(['./models/fire', './models/location'], function(Fire, Location) {
   return {
-    Poi: Poi,
+    Fire: Fire,
     Location: Location
   };
 });

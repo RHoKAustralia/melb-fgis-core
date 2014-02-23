@@ -3,52 +3,59 @@ define(function() {
     initialize: function(options) {
       _.bindAll(this);
 
-      this.pois = options.pois;
+      this.locations = options.locations;
+      this.fires = options.fires;
 
-      this.pois.on('add', this.addMarker);
-      this.pois.on('change', this.changeMarker);
+      this.locations.on('add', this.addMarker);
+      this.fires.on('add', this.addMarker);
+      this.locations.on('change', this.changeMarker);
+      this.fires.on('change', this.changeMarker);
 
       this.markers = {};
     },
-    styleMap: {
-      'fire': function(poi) {
-        return {
-          style: {
-            color: "#EE0000",
-            weight: 5,
-            opacity: 0.65
-          }
-        };
-      },
-      'location': function(poi) {
-        return {
-          pointToLayer: function(feature, latlng) {
-            if (app.views.home.markers[poi.id]) {
-              console.log("Duplicate marker for " + poi.id)
+    styleMap: function() {
+      var view = this;
+      return {
+        'fire': function(feature) {
+          return {
+            style: {
+              color: "#EE0000",
+              weight: 5,
+              opacity: 0.65
             }
-            var marker = app.views.home.markers[poi.id] = L.circleMarker(latlng, {
-              color: "#9BDC59",
-              fillColor: "#3A3",
-              fillOpacity: 1.0,
-              opacity: 1.0,
-              radius: 7.5,
-              weight: 2.5,
-            });
-            marker.bindPopup(poi.get('description'));
-            return marker;
-          }
-        };
-      }
+          };
+        },
+        'location': function(feature) {
+          return {
+            pointToLayer: function(_, latlng) {
+              if (view.markers[feature.id]) {
+                console.log("Duplicate marker for " + feature.id)
+              }
+              var marker = view.markers[feature.id] = L.circleMarker(latlng, {
+                color: "#9BDC59",
+                fillColor: "#3A3",
+                fillOpacity: 1.0,
+                opacity: 1.0,
+                radius: 7.5,
+                weight: 2.5,
+              });
+              marker.bindPopup(feature.get('description'));
+              return marker;
+            }
+          };
+        }
+      };
     },
     startFollowing: function() {
       this.locateControl.locate();
     },
     locationFound: function(locationEv) {
+      var view = this;
       if (app.myLocation) {
         app.myLocation.updateLatLng(locationEv.latlng)
         app.myLocation.save();
       } else {
-        app.myLocation = new models.Location({
+        app.myLocation = this.locations.create({
           description: "Vehicle " + Math.floor(Math.random() * 90 + 10),
           type: 'location',
           geo: {
@@ -61,13 +68,12 @@ define(function() {
               }
             }]
           }
-        });
-        app.myLocation.save({}, {
+        }, {
           success: function(myLocation) {
             app.locationId = myLocation.id
             localStorage.setItem('my_location_id', myLocation.id);
-            app.pois.add(myLocation);
-          }
+          },
+          wait: true
         });
       }
       this.otherLocations.bringToFront();
@@ -91,25 +97,25 @@ define(function() {
 
       return this
     },
-    addMarker: function(poi) {
-      if (!app.myLocation && poi.id == app.locationId) {
-        app.myLocation = poi;
+    addMarker: function(feature) {
+      if (!app.myLocation && feature.id == app.locationId) {
+        app.myLocation = feature;
       }
-      if (app.myLocation == poi) {
+      if (app.myLocation == feature) {
         // no need to draw my own marker: leaflet-locatecontrol does that for us
         return;
       }
       try {
-        var marker = L.geoJson(poi.get('geo'), this.styleMap[poi.get('type')](poi));
+        var marker = L.geoJson(feature.get('geo'), this.styleMap()[feature.get('type')](feature));
         marker.addTo(this.otherLocations);
       } catch (e) {
-        console.log("Could not add marker for POI", poi, e);
+        console.log("Could not add marker for POI", feature, e);
       }
     },
-    changeMarker: function(poi) {
-      var marker = this.markers[poi.id];
+    changeMarker: function(feature) {
+      var marker = this.markers[feature.id];
       if (marker) {
-        marker.setLatLng(poi.latLng());
+        marker.setLatLng(feature.latLng());
       }
     },
     critical: function() {

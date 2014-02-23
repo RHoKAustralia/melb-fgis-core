@@ -36,23 +36,25 @@ requirejs(['jquery', 'collections', 'models', 'views'], function($, collections,
 
     app.views = {}
 
-    app.pois = new collections.Pois()
+    var locations = new collections.Locations()
+    var fires = new collections.Fires()
 
-    app.views.home = new views.Home({
-      pois: app.pois
+    var home = new views.Home({
+      locations: locations,
+      fires: fires
     })
 
     app.router = new Router()
 
     app.router.on('route:home', function() {
-      app.views.home.render()
+      home.render()
       app.locationId = localStorage.getItem('my_location_id')
-      app.pois.fetch({
-        update: true,
+      locations.fetch({
         success: function() {
-          app.views.home.startFollowing();
+          home.startFollowing();
         }
       });
+      fires.fetch();
     })
 
     Backbone.history.start()

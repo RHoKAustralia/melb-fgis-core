@@ -1,5 +1,6 @@
-define(['./collections/pois'], function(Pois) {
+define(['./collections/fires', './collections/locations'], function(Fires, Locations) {
   return {
-    Pois: Pois
+    Fires: Fires,
+    Locations: Locations
   };
 });

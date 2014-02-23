@@ -11,5 +11,8 @@
     "underscore": "~1.4.4",
     "font-awesome": "~3.1.1",
     "leaflet-locatecontrol": "~0.20.0"
+  },
+  "resolutions": {
+    "underscore": "~1.4.4"
   }
 }

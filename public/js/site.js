@@ -18,21 +18,6 @@ requirejs.config({
 
 requirejs(['jquery', 'backbone', 'collections', 'models', 'views'], function($, Backbone, collections, models, views) {
 
-  var toggleDataFrame = function(dataFrameId, title) {
-    var idSelector = '#' + dataFrameId;
-
-    if ($(idSelector).hasClass('selected')) {
-      $('#bottom-menu').find('a.selected').removeClass('selected');
-      $('#data-frame').fadeOut('fast');
-    } else {
-      $('#bottom-menu').find('a.selected').removeClass('selected');
-      $(idSelector).addClass('selected');
-      $('#data-frame').fadeIn('fast').empty().append('<p>' + title + '</p>');
-      window.primus.write('none');
-      window.primus.write(dataFrameId);
-    }
-  };
-
   var Router = Backbone.Router.extend({
     routes: {
       '': 'home'

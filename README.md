@@ -20,7 +20,9 @@ Once created, you can set up your web application project by running the followi
 - Create role and database
 
 ```
-psql postgres -D <data-file-location>
+initdb -D <data-file-location>
+postgres -D <data-file-location> &
+psql postgres
 CREATE DATABASE fgis_development;
 CREATE ROLE fgis_development CREATEDB LOGIN;
 ```

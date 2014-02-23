@@ -7,8 +7,7 @@ requirejs.config({
 
 requirejs(['jquery', 'collections', 'models', 'views'], function($, collections, models, views) {
 
-  function toggleDataFrame(dataFrameId, title) {
-
+  var toggleDataFrame = function(dataFrameId, title) {
     var idSelector = '#' + dataFrameId;
 
     if ($(idSelector).hasClass('selected')) {
@@ -21,43 +20,40 @@ requirejs(['jquery', 'collections', 'models', 'views'], function($, collections,
       window.primus.write('none');
       window.primus.write(dataFrameId);
     }
-
-  }
+  };
 
   var Router = Backbone.Router.extend({
     routes: {
       '': 'home'
     }
-  })
+  });
 
   $(function() {
+    var app = window.app = {};
+    app.views = {};
 
-    var app = window.app = {}
-
-    app.views = {}
-
-    var locations = new collections.Locations()
-    var fires = new collections.Fires()
+    var locations = new collections.Locations();
+    var fires = new collections.Fires();
 
     var home = new views.Home({
       locations: locations,
       fires: fires
-    })
+    });
 
-    app.router = new Router()
+    app.router = new Router();
 
     app.router.on('route:home', function() {
-      home.render()
-      app.locationId = localStorage.getItem('my_location_id')
+      home.render();
+      app.locationId = localStorage.getItem('my_location_id');
       locations.fetch({
         success: function() {
           home.startFollowing();
         }
       });
       fires.fetch();
-    })
+    });
 
-    Backbone.history.start()
+    Backbone.history.start();
 
     // Let's test it...
 
@@ -73,7 +69,7 @@ requirejs(['jquery', 'collections', 'models', 'views'], function($, collections,
 
       app.event = data.event;
 
-    L.geoJson(event.featureCollection).addTo(app.views.map)
+      L.geoJson(event.featureCollection).addTo(app.views.map)
 
       // update the map
 
@@ -83,9 +79,8 @@ requirejs(['jquery', 'collections', 'models', 'views'], function($, collections,
 
       // update temp and status
 
-
     })
-*/
+    */
 
     // // check local storage for location id, or use existing one.
     // navigator.geolocation.getCurrentPosition(function(position) {
@@ -98,6 +93,6 @@ requirejs(['jquery', 'collections', 'models', 'views'], function($, collections,
     // })
     // }, 4000)
 
-  })
+  });
 
-})
+});

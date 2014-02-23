@@ -15,7 +15,7 @@ define(function() {
     styleMap: function() {
       var view = this;
       return {
-        'fire': function(feature) {
+        fire: function(feature) {
           return {
             style: {
               color: "#EE0000",
@@ -24,11 +24,11 @@ define(function() {
             }
           };
         },
-        'location': function(feature) {
+        location: function(feature) {
           return {
             pointToLayer: function(_, latlng) {
               if (view.markers[feature.id]) {
-                console.log("Duplicate marker for " + feature.id)
+                console.log("Duplicate marker for " + feature.id);
               }
               var marker = view.markers[feature.id] = L.circleMarker(latlng, {
                 color: "#9BDC59",
@@ -51,7 +51,7 @@ define(function() {
     locationFound: function(locationEv) {
       var view = this;
       if (app.myLocation) {
-        app.myLocation.updateLatLng(locationEv.latlng)
+        app.myLocation.updateLatLng(locationEv.latlng);
         app.myLocation.save();
       } else {
         app.myLocation = this.locations.create({
@@ -94,7 +94,7 @@ define(function() {
       this.otherLocations = L.featureGroup().addTo(map);
       map.on('locationfound', this.locationFound);
 
-      return this
+      return this;
     },
     addMarker: function(feature) {
       if (!app.myLocation && feature.id == app.locationId) {

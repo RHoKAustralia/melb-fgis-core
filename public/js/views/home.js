@@ -3,14 +3,13 @@ define(function() {
     initialize: function(options) {
       _.bindAll(this);
 
-      this.locations = options.locations;
-      this.fires = options.fires;
-
-      this.locations.on('add', this.addMarker);
-      this.fires.on('add', this.addMarker);
-      this.locations.on('change', this.changeMarker);
-      this.fires.on('change', this.changeMarker);
-
+      var collections = ['locations', 'fires'];
+      for (var i = 0; i < collections.length; ++i) {
+        var type = collections[i];
+        this[type] = options[type];
+        this[type].on('add', this.addMarker);
+        this[type].on('change', this.changeMarker);
+      };
       this.markers = {};
     },
     styleMap: function() {
@@ -60,13 +59,13 @@ define(function() {
           type: 'location',
           geo: {
             type: "FeatureCollection",
-            features: [{
+            features: [ {
               type: "Feature",
               geometry: {
                 type: "Point",
                 coordinates: [locationEv.latlng.lng, locationEv.latlng.lat]
               }
-            }]
+            } ]
           }
         }, {
           success: function(myLocation) {

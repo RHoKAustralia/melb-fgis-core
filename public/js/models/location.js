@@ -6,14 +6,14 @@ define(['./feature'], function(Feature) {
     },
     updateLatLng: function(latlng) {
       this.set('geo', {
-        "type": "FeatureCollection",
-        "features": [{
-          "type": "Feature",
-          "geometry": {
-            "type": "Point",
-            "coordinates": [latlng.lng, latlng.lat]
+        type: "FeatureCollection",
+        features: [ {
+          type: "Feature",
+          geometry: {
+            type: "Point",
+            coordinates: [latlng.lng, latlng.lat]
           }
-        }]
+        } ]
       });
     }
   });

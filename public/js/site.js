@@ -1,11 +1,22 @@
 requirejs.config({
   baseUrl: 'js',
   paths: {
-    jquery: '/components/jquery/jquery'
+    jquery: '/components/jquery/jquery',
+    backbone: '/components/backbone/backbone',
+    underscore: '/components/underscore/underscore'
+  },
+  shim: {
+    backbone: {
+      deps: ['underscore', 'jquery'],
+      exports: 'Backbone'
+    },
+    underscore: {
+      exports: '_'
+    }
   }
 });
 
-requirejs(['jquery', 'collections', 'models', 'views'], function($, collections, models, views) {
+requirejs(['jquery', 'backbone', 'collections', 'models', 'views'], function($, Backbone, collections, models, views) {
 
   var toggleDataFrame = function(dataFrameId, title) {
     var idSelector = '#' + dataFrameId;

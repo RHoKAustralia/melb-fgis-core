@@ -1,4 +1,4 @@
-define(function() {
+define(['backbone', 'underscore'], function(Backbone, _) {
   var Home = Backbone.View.extend({
     initialize: function(options) {
       _.bindAll(this);

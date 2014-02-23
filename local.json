@@ -11,7 +11,6 @@
         ],
         "/js/site.min.js":[
             "/js/site.js"
-            , "/js/socketio.js"
         ],
         "/components/jquery/jquery.min.js":[
             "/components/jquery/jquery.js"

@@ -5,7 +5,7 @@ requirejs.config({
   }
 });
 
-requirejs(['jquery', 'views'], function($, views) {
+requirejs(['jquery', 'models', 'views'], function($, models, views) {
 
   function toggleDataFrame(dataFrameId, title) {
 
@@ -24,31 +24,6 @@ requirejs(['jquery', 'views'], function($, views) {
 
   }
 
-  var models = {}
-  models.Poi = Backbone.Model.extend({
-    toJSON: function(options) {
-      return _.omit(this.attributes, ['id', 'type'])
-    }
-  })
-  models.Location = models.Poi.extend({
-    urlRoot: '/feature/location',
-    latLng: function() {
-      var coordinates = this.get('geo').features[0].geometry.coordinates;
-      return L.latLng(coordinates[1], coordinates[0])
-    },
-    updateLatLng: function(latlng) {
-      this.set('geo', {
-        "type": "FeatureCollection",
-        "features": [{
-          "type": "Feature",
-          "geometry": {
-            "type": "Point",
-            "coordinates": [latlng.lng, latlng.lat]
-          }
-        }]
-      });
-    }
-  });
   var modelForType = {
     location: models.Location,
     fire: models.Poi

@@ -12,7 +12,6 @@ Once created, you can set up your web application project by running the followi
 > Using [Homebrew](http://brew.sh/)
 
 - Install Node.js: ```brew install node```
-- Install Node Package Manager: ```brew install npm```
 - Install postgres: ```brew install postgres```
 
 ### Then generic install instructions:

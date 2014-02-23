@@ -6,13 +6,10 @@
   ],
   "dependencies": {
     "bootstrap": "~2.2.2",
-    "backbone": "~1.1.0",
+    "backbone": "1.1.0",
     "leaflet": "~0.5.1",
     "underscore": "~1.4.4",
     "font-awesome": "~3.1.1",
     "leaflet-locatecontrol": "~0.20.0"
-  },
-  "resolutions": {
-    "underscore": "~1.4.4"
   }
 }

@@ -30,10 +30,14 @@ module.exports = function (app, configurations, express, logger) {
     })
 
     // Cachify Asset Configuration
-    app.use(cachify.setup(assets, {
-        root: __dirname + '/public',
-        production: nconf.get('cachify')
-    }))
+    // Commented out for now until we figure out how to integrate RequireJS
+    // with the cachify assets configuration.
+    // We can worry about production optimisation when we get closer to putting
+    // this into production.
+    // app.use(cachify.setup(assets, {
+    //     root: __dirname + '/public',
+    //     production: nconf.get('cachify')
+    // }))
 
     // Global Configuration
     app.configure(function () {

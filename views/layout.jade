@@ -29,12 +29,12 @@ html(lang='en')
 
         block content
 
-    | !{cachify_js('/components/jquery/jquery.min.js')}
-    | !{cachify_js('/components/bootstrap/docs/assets/js/bootstrap.min.js')}
-    | !{cachify_js('/components/leaflet/dist/leaflet.js')}
-    | !{cachify_js('/components/leaflet-locatecontrol/src/L.Control.Locate.js')}
-    | !{cachify_js('/components/underscore/underscore-min.js')}
-    | !{cachify_js('/components/backbone/backbone-min.js')}
-    | !{cachify_js('/js/primus.js')}
-    | <script data-main="js/site" src="/components/requirejs/require.js"></script>
+    script(src='/components/jquery/jquery.min.js')
+    script(src='/components/bootstrap/docs/assets/js/bootstrap.min.js')
+    script(src='/components/leaflet/dist/leaflet.js')
+    script(src='/components/leaflet-locatecontrol/src/L.Control.Locate.js')
+    script(src='/components/underscore/underscore-min.js')
+    script(src='/components/backbone/backbone-min.js')
+    script(src='/js/primus.js')
+    script(data-main='js/site' src='/components/requirejs/require.js')
     block scripts

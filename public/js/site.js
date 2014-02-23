@@ -1,4 +1,11 @@
-(function($) {
+requirejs.config({
+  baseUrl: 'js',
+  paths: {
+    jquery: '/components/jquery/jquery'
+  }
+});
+
+requirejs(['jquery'], function($) {
 
   function toggleDataFrame(dataFrameId, title) {
 
@@ -265,4 +272,4 @@
 
   })
 
-}(jQuery))
+})

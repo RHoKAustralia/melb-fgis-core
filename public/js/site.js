@@ -5,7 +5,7 @@ requirejs.config({
   }
 });
 
-requirejs(['jquery', 'models', 'views'], function($, models, views) {
+requirejs(['jquery', 'collections', 'models', 'views'], function($, collections, models, views) {
 
   function toggleDataFrame(dataFrameId, title) {
 
@@ -22,21 +22,6 @@ requirejs(['jquery', 'models', 'views'], function($, models, views) {
       window.primus.write(dataFrameId);
     }
 
-  }
-
-  var modelForType = {
-    location: models.Location,
-    fire: models.Poi
-  }
-
-  var collections = {
-    Pois: Backbone.Collection.extend({
-      model: function(attrs, options) {
-        var model = modelForType[attrs.type];
-        return new model(attrs, options);
-      },
-      url: '/feature',
-    })
   }
 
   var Router = Backbone.Router.extend({

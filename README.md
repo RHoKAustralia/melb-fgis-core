@@ -1,8 +1,31 @@
 # fgis-core
 
-FGIS web-app and maptile server.
+HotSpot web-app and maptile server.
 
-This includes: [connect-cachify](https://github.com/mozilla/connect-cachify), [twitter bootstrap](http://twitter.github.com/bootstrap/), [JQuery](http://jquery.com/), [bower](http://twitter.github.com/bower/), [jade](http://jade-lang.com/), [winston-request-logger](https://github.com/wolfeidau/winston-request-logger) . . .
+## Description
+
+### The Problem
+
+Fire-fighters currently use paper maps and radios for all their communications. This method is cumbersome and inaccurate. There have not been any technical solutions yet, because most of them involve dedicated infrastructure.
+
+### A Solution
+
+Almost everyone has some kind of smart device on them at all times (i.e. phone, tablet, etc). We can leverage this ubiquitous technology to avoid double-handling all this information, and augment current information with new feeds, including accurate personnel & vehicle locations, and other incident features, over time.
+
+### This Repo
+
+This is the main repo for the HotSpot project (formerly FireGround Information System, and also Universal Emergency Response Management). There are a heap of other repos (listed below), but most of them are old WIPs or spikes.
+
+Most of the documentation/collateral can be found here: [`fgis/doc`](https://github.com/rhok-melbourne/fgis/tree/master/doc).
+
+### Other Repos
+
+- [`fgis`](https://github.com/rhok-melbourne/fgis) - Rails app from the first hack. Also most of the docs are here.
+  - [`fgis-java`](https://github.com/rhok-melbourne/fgis-java) - Java port of the original Rails app.
+- [`fgis-vagrant`](https://github.com/rhok-melbourne/fgis-vagrant) - Vagrant project to spin up the web app.
+- [`fgis-navigator`](https://github.com/rhok-melbourne/fgis-navigator) - UI spike for the web-app front-end.
+- [`fgis-p2p`](https://github.com/rhok-melbourne/fgis-p2p) - JavaScript Spike for peer communication.
+- [`fgis-mesh-spike`](https://github.com/rhok-melbourne/fgis-mesh-spike) - Hardware spike for mesh radio communications.
 
 ## Getting Started
 
@@ -77,3 +100,7 @@ _(Nothing yet)_
 
 ## License
 Licensed under the MIT license.
+
+## Attribution (kinda)
+
+This app includes: [connect-cachify](https://github.com/mozilla/connect-cachify), [twitter bootstrap](http://twitter.github.com/bootstrap/), [JQuery](http://jquery.com/), [bower](http://twitter.github.com/bower/), [jade](http://jade-lang.com/), [winston-request-logger](https://github.com/wolfeidau/winston-request-logger) . . .
